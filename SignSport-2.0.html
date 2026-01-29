@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignSport — Подбор спорта по почерку</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.jpg') }}" sizes="16x16" type="image/jpeg">
+</head>
+
+<body>
+
+    <!-- Баннер -->
+    <div class="header">
+        <div class="navigation">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="SignSport">
+            </a>
+            <ul class="textnav">
+                <li><a href="{{ url_for('home') }}"><b>Главное</b></a></li>
+                <li><a href="{{ url_for('analyze_page') }}"><b>Анализ</b></a></li>
+                <li>
+                    <a href="#" class="custom-tooltip">
+                        <b>О нас</b>
+                        <span class="tooltip-text">
+                            Программа SignSport поможет вам выбрать подходящий для вас вид спорта, опираясь на ваш характер и личность! Загрузите данные и она предоставит вам долгожданный результат!
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Приветственный текст -->
+    <div class="page">
+        <h1 class="maintext">Добро пожаловать на SignSport!</h1>
+        <p class="subtitle_two"><i>Не знаете, какой спорт вам подойдёт? Хотите подобрать его не только по физическим показателям, но и по личностным особенностям? Тогда вы по адресу!</i></p>
+    </div>
+
+    <!-- Возраст -->
+<input type="number" id="age" min="7" max="100" placeholder="15">
+
+<!-- Пол -->
+<select id="gender">
+    <option value="">—</option>
+    <option value="male">Мужской</option>
+    <option value="female">Женский</option>
+</select>
+
+    <!-- Место для ввода характера человека -->
+    <div class="upload-box">
+        <textarea id="reportInput" placeholder="Напишите сюда полученную картину характера человека и узнайте - какой вид спорта ему может подойти!"></textarea>
+        <br>
+        <button type="button" onclick="runAnalysis()" class="analyze-button">Получить рекомендацию</button>
+    </div>
+
+    <!-- Место для результата -->
+    <div id="result" class="result-box" style="display: none;">
+        <div class="result-header">
+            <span class="checkmark">✅</span>
+            <strong>Рекомендация готова!</strong>
+        </div>
+        <p><strong>Рекомендуемый вид спорта:</strong> <span id="recommendedSport"></span></p>
+        <p><strong>Уверенность модели:</strong> <span id="confidence"></span>%</p>
+        <p id="reasonText"></p>
+    </div>
+
+    <!-- Скрол примеров характера -->
+    <div class="page2">
+        <p class="textexample">Примеры описаний характера человека для программы:</p>
+    </div>
+
+    <div class="carousel-wrapper" style="text-align: center; margin: 40px auto; max-width: 1000px;">
+        <!-- Счётчик -->
+        <div class="carousel-counter" id="counter" style="margin-bottom: 12px; font-size: 16px; color: #496F94;">
+            1/4
+        </div>
+
+        <!-- Карусель -->
+        <div class="carousel-container">
+            <button class="arrow left-arrow" id="prevBtn">‹</button>
+            <div class="carousel">
+                <!-- ✅ Только первый — active -->
+                <div class="review active">
+                    <div class="demo-labels">
+                        <span class="label-gender">Пол: Женский</span>
+                        <span class="label-age">Возраст: 40 лет</span>
+                    </div>
+                    <p>Интровертный характер, ориентированный на внутренние ощущения и самоконтроль. Работает в своем темпе, предпочитая методичную подготовку быстрым результатам. Эмоционально сдержан, но склонен к глубокому самоанализу своих действий. Внешне спокоен, однако внутренне постоянно анализирует себя, стремясь к совершенству. Избегает конфронтационных ситуаций, ценит гармонию и предсказуемость. Его стихия — монотонная работа на индивидуальной дорожке, где можно полностью погрузиться в ощущения и ритм. Мотивирован внутренним стремлением к идеальной работе, а не одобрении окружающих.</p>
+                </div>
+                <div class="review">
+                    <div class="demo-labels">
+                        <span class="label-gender">Пол: Мужской</span>
+                        <span class="label-age">Возраст: 53 лет</span>
+                    </div>
+                    <p>Артистичная и творческая натура с яркой эмоциональной выразительностью. Обладает спонтанным мышлением и живой фантазией. Склонна к импровизации и экспрессивным проявлениям. В начале работы полна энтузиазма и оригинальных идей, но может быстро терять концентрацию при монотонных задачах. Эмоционально чувствительна, требует постоянной смены впечатлений. Ее стихия — это сценическое воплощение, пластика и художественный образ.</p>
+                </div>
+
+                <div class="review">
+                    <div class="demo-labels">
+                        <span class="label-gender">Пол: Женский</span>
+                        <span class="label-age">Возраст: 66 лет</span>
+                    </div>
+                    <p>Перфекционист с высокими стандартами качества. Каждое действие продумывает до мелочей, стремится к безупречности. Обладает развитым самоконтролем и дисциплиной. Внешне сдержан, но внутренне постоянно анализирует и корректирует себя. Ценит четкие правила, структуру и предсказуемость. Испытывает потребность в одобрении со стороны авторитетных фигур. Его сила — в способности доводить все до совершеннства, работая на точность. Не любит хаос и импровизацию, предпочитает выверенные схемы.</p>
+                </div>
+
+                <div class="review">
+                    <div class="demo-labels">
+                        <span class="label-gender">Пол: Женский</span>
+                        <span class="label-age">Возраст: 19 лет</span>
+                    </div>
+                    <p>Аналитический стратег с системным мышлением. Подходит к любой задаче стратегически: оценивает варианты, просчитывает последствия, выбирает оптимальный вариант. Эмоционально стабилен, не подвержен импульсивным решениям. Ценит логику, порядок и последовательность. Внешне невозмутим, предпочитает наблюдать и анализировать, а не активно вмешиваться. Его мотивация — интеллектуальное решение сложной задачи, а не внешнее признание. Идеально чувствует себя в условиях, где цель достигается за счет превосходства ума, а не грубой силы.</p>
+                </div>
+            </div>
+            <button class="arrow right-arrow" id="nextBtn">›</button>
+        </div>
+    </div>
+
+    <footer>
+        <div>
+            <p><b>SignSport 2.0 — подбор вида спорта специально для вас</b></p>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="{{ url_for('static', filename='js/analyze.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/carousel.js') }}"></script>
+</body>
+</html>
