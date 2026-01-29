@@ -13,3 +13,19 @@ body {
     height: 100%;
     width: 200px;
 }
+
+
+/*создание баннера - цвет, размер текста позиции, тень*/
+.header{
+    background-color: #4682A9;
+    color: #fffdef;              
+    height: 85px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
+}
+
+/* -------------------------------------------------- */
