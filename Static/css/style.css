@@ -29,3 +29,305 @@ body {
 }
 
 /* -------------------------------------------------- */
+
+/*пространство для текста на баннере*/
+
+.navigation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* -------------------------------------------------- */
+
+
+/*оформление текста на баннере*/
+
+.textnav
+{
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 22px; 
+    font-weight: 500;
+}
+
+.textnav>li{
+    padding-left: 20px;
+    margin-left: 20px;
+    position: relative;
+}
+
+.textnav>li:first-child::before{
+    display: none;
+}
+
+.textnav>li>a{
+    text-decoration: none;
+    color: #FFFBDE;
+    text-align: right;
+    margin-right: 25px;
+}
+
+/* -------------------------------------------------- */
+
+/* === СТИЛИ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ === */
+
+/* Распределение текста и картинки на сайте */
+.mainpage{
+    padding-top: 200px;
+    padding-bottom: 100px;
+}
+
+.mainpage img{
+    height: 347px;
+    width: 347px;
+}
+
+/* -------------------------------------------------- */
+
+/* Заголовок на главной и странице анализа */
+
+.maintext{
+    color: #749BC2;
+    font-size: 60px;
+    text-align: center
+}
+
+/* -------------------------------------------------- */
+
+/* Подзаголовок на главной странице */
+
+.subtitle{
+    color: #496F94;
+    font-size: 22px;
+    max-width: 1100px;      
+    margin: 0 auto;         
+    padding-left: 20px;    
+    padding-right: 20px;
+    text-align: center;
+}
+
+
+/* -------------------------------------------------- */
+
+/*фото капибары рядом с рамкой*/
+
+.tennis {
+    width: 347px;
+    height: 347px;
+    margin-top: -10px; 
+    margin-left: 80px;
+    display: block;
+}
+
+/*текст в рамке прямоугольной с оруглыми углами*/
+
+.text {
+    background: #4682A9;
+    color: #FFFBDE;
+    padding: 18px 26px;        /* отступы внутри рамки */
+    border-radius: 62px;
+    font-size: 28px;
+    text-align: center;
+    /* Центрирование по горизонтали */
+    display: block;
+    max-width: 1250px;
+    margin: -25px auto 0;    
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
+}
+
+/* -------------------------------------------------- */
+
+/*нзвание списка*/
+.name{
+    color: #406890;
+    font-size: 46px;
+    font-weight: 700;
+    padding: 0; 
+    margin-top: 100px;
+    margin-left: 70px;
+}
+
+/*капибара рядом со списком*/
+
+.athletic {
+    width: 347px;
+    height: 347px;
+    display: block;
+    margin-left: auto;     /* отталкивает от левого края */
+    margin-right: 30px;       /* прижимает к правому */
+    /* margin-top по желанию, например: */
+    margin-top: -180px;
+}
+
+/* Список этапов */
+
+.spisok{
+    color: #30465A;
+    font-size: 30px;
+}
+
+/* Элементы списка этапов (оформление блоков) */
+
+.textspisok {
+   background: linear-gradient(to bottom right,#AAD4E6, #4682A9);
+    padding: 30px 15px;
+    border-radius: 35px;
+    text-align: left;
+    display: block;
+    max-width: 900px;
+    margin: 18px 0 0 150px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    /* Плавная анимация для transform, background и тени */
+  transition: 
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.textspisok:hover {
+  background-color: #4682A9;
+  transform: translateY(-3px);
+}
+/* -------------------------------------------------- */
+
+/* Блок с надписью "Загрузите отчёт..." */
+
+.AI {
+  display: flex;
+  align-items: flex-start;
+  padding: 120px 0; /* чуть уменьшили отступы */
+  gap: 30px; /* расстояние между картинкой и текстом */
+}
+
+.AI img {
+  width: 370px;
+  height: 450px;
+  margin-left: 50px;
+  margin-top: 80px;
+}
+
+.AI-text {
+  margin: 90px 50px 0 auto; /* правый отступ 50px, левый — auto → прижато вправо */
+  text-align: center;
+  font-size: 40px;
+  color: #30465A;
+  max-width: 1000px; /* чтобы текст не растягивался на всю ширину */
+}
+
+
+/* Стрелка перед кнопкой */
+.arrow-container {
+    margin: 30px 0 50px 0;
+}
+
+.arrow {
+    display: block;
+  height: 150px;
+  width: 170px;
+  margin-left: auto;
+  margin-right: 450px;
+  margin-top: -430px;
+    animation: bounce 2s infinite ease-in-out;
+}
+
+/* Стрелка перед кнопкой (анимация) */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(12px); /* На сколько пикселей опускается */
+    }
+}
+
+/* Стили кнопки "Проанализировать сейчас" */
+
+.butten-link {
+  text-decoration: none; /* убираем подчёркивание ссылки */
+  display: block;
+  text-align: center;
+}
+
+.butten {
+  background: #4682A9;
+  color: #FFFBDE;
+  padding: 20px;
+  border-radius: 15px;
+  font-size: 30px;
+  font-weight: 600;
+  margin: -20px 290px 0 auto;
+  max-width: 500px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  transition: 
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.butten:hover {
+  background-color: #4682A9;
+  transform: translateY(-3px);
+}
+
+/* -------------------------------------------------- */
+
+/* === СТИЛИЗАЦИЯ ПОДСКАЗКИ "О НАС" === */
+
+/* Стили для ссылки с подсказкой */
+.custom-tooltip {
+  position: relative;
+  text-decoration: none;
+  color: #FFFBDE;
+}
+
+.custom-tooltip b {
+  text-decoration: none;
+}
+
+/* Всплывающая подсказка*/
+.custom-tooltip .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed; 
+  top: 102px;
+  left: 50%;
+  transform: translateX(-10%);
+  background-color: #fffdef;
+  color: #30465A;
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  font-size: 21px;
+  line-height: 1.6;
+  width: 80%; /* фиксированная ширина относительно окна */
+  max-width: 750px;
+  text-align: center;
+  z-index: 1000;
+  white-space: normal;
+  word-wrap: break-word;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* Показываем при наведении */
+.custom-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* -------------------------------------------------- */
+
+/* === ФУТЕР === */
+
+footer {
+    color: #30465A;
+    font-size: 18px;
+    padding: 85px 0;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* -------------------------------------------------- */
