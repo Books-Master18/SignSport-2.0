@@ -224,7 +224,7 @@ body {
     margin: 30px 0 50px 0;
 }
 
-.arrow {
+.scroll-hint-arrow {
     display: block;
   height: 150px;
   width: 170px;
@@ -325,9 +325,276 @@ body {
 footer {
     color: #30465A;
     font-size: 18px;
-    padding: 85px 0;
+    padding: 50px 0;
     text-align: center;
     font-weight: 500;
 }
 
 /* -------------------------------------------------- */
+
+
+/* === СТИЛИ ДЛЯ СТРАНИЦЫ АНАЛИЗА === */
+
+.page{
+    padding-top: 65px;
+    padding-bottom: 40px;
+}
+
+/* Подзаголовок на странице анализа */
+
+.subtitle_two{
+    color: #496F94;
+    font-size: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+/* -------------------------------------------------- */
+
+/* Основной контейнер загрузки */
+#upload-container {
+  margin: 10px auto;
+  max-width: 1000px;
+}
+
+/* Поле ввода и кнопка анализа */
+.upload-box {
+    padding: 32px;
+    text-align: center;
+}
+
+.upload-icon {
+    max-width: 100px;
+    margin-bottom: 16px;
+}
+
+#reportInput {
+    width: 75%;
+    height: 170px;
+    padding: 12px;
+    margin: 16px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 18px;
+    resize: none;
+}
+
+.analyze-button {
+    background: #4682A9;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    font-size: 18px;        
+    font-weight: 600;             
+    border-radius: 12px; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(70, 130, 169, 0.25);
+    margin-top: 20px;
+}
+
+.analyze-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(70, 130, 169, 0.35);
+    background: #3a6d8c;
+}
+
+/* Блок результата */
+#result {
+    margin: 60px auto;
+    font-size: 20px;
+    color: #FFFBDE;
+    max-width: 800px;
+    padding: 12px 32px;
+    background: #4682A9;
+    border-radius: 10px;
+    display: none;
+}
+
+/* -------------------------------------------------- */
+
+/* === ПРИМЕРЫ ХАРАКТЕРА (КАРУСЕЛЬ) === */
+
+.page2{
+    padding-bottom: -39px;
+}
+
+.textexample{
+    margin-top: 50px;
+    color: #496F94;
+    font-size: 40px;
+    font-weight: 700;
+    margin-left: 100px;
+    text-align: left
+}
+
+/* -------------------------------------------------- */
+
+/* ------ Контейнер всей карусели ---- */
+.carousel-container {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  gap: 15px;
+  margin: 30px auto;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 15px;
+  position: relative;
+}
+
+/* Стили для меток пола и возраста */
+.demo-labels {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 16px;
+  color: #496F94;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 6px 12px;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+/* ------ счетчик ---- */
+
+.carousel-counter {
+  margin: 20px auto;
+  font-size: 16px;
+  color: #4682A9;
+  font-weight: 600;
+  text-align: center;
+  transition: opacity 0.2s;
+  min-width: 40px; /* чтобы цифры не "прыгали" */
+}
+
+/* ----- Сам блок карусели ----- */
+.carousel {
+  width: 100%;
+  max-width: 900px;
+  min-width: 50px;
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  padding: 25px;
+  box-sizing: border-box;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ---- Каждый текст ---- */
+.review {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* текст начинается сверху */
+  align-items: center;
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+  padding: 60px 20px 20px;
+  box-sizing: border-box;
+  /* Добавим прокрутку, если вдруг не влезет */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  /* РАЗРЕШИТЬ ВЫДЕЛЕНИЕ ТЕКСТА */
+  user-select: text;        /* для всех браузеров */
+  -webkit-user-select: text; /* для Safari */
+  pointer-events: none;
+}
+
+.review p {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: inherit;
+}
+
+.review.active {
+  opacity: 1;
+  pointer-events: auto; 
+}
+
+.left-arrow {
+  margin-right: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  margin-left: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  background: #f0f0f0;
+  border: none;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  color: #444;
+  flex-shrink: 0;
+}
+
+.left-arrow:hover {
+  background: #d8d8d8;
+}
+
+.right-arrow{
+  margin-right: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  margin-left: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  background: #f0f0f0;
+  border: none;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  color: #444;
+  flex-shrink: 0;
+
+}
+
+.right-arrow:hover {
+  background: #d8d8d8;
+}
+
+/*----------------------------------------*/
+
