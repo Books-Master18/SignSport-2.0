@@ -1,8 +1,16 @@
 function runAnalysis() {
-    const text = document.getElementById('reportInput').value;
-    const age = document.getElementById('age').value || null;
+    const text = document.getElementById('reportInput').value.trim();
+    const ageStr = document.getElementById('age').value;
     const gender = document.getElementById('gender').value || null;
-    
+
+    // Преобразуем возраст в число или null
+    const age = ageStr ? parseInt(ageStr, 10) : null;
+
+    if (!text) {
+        alert("Пожалуйста, введите описание характера");
+        return;
+    }
+
     fetch('/api/analyze', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -21,6 +29,6 @@ function runAnalysis() {
     })
     .catch(error => {
         console.error('Ошибка:', error);
-        alert('Произошла ошибка при анализе.');
+        alert('Не удалось подключиться к серверу.');
     });
 }
