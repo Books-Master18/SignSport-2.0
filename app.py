@@ -1,51 +1,66 @@
 from flask import Flask, request, jsonify, render_template
+import re
 from sport_rules import SPORT_RULES
 
+# === ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ: проверка осмысленности текста ===
+def is_meaningful_text(text):
+    """
+    Проверяет, похож ли текст на осмысленное описание характера.
+    Требования:
+    - минимум 20 символов
+    - минимум 3 русских слова длиной >= 3 букв
+    """
+    if len(text) < 20:
+        return False
+    russian_words = re.findall(r'[а-яё]{3,}', text.lower())
+    return len(russian_words) >= 3
+
+# === ОСНОВНАЯ ЛОГИКА АНАЛИЗА ===
 def analyze_with_rules(text, age=None, gender=None):
     """
-    Правило-ориентированный анализ текста на основе SPORT_RULES
+    Анализирует текст и возвращает рекомендацию на основе SPORT_RULES
     """
+    # Проверка на бессмысленный ввод
+    if not is_meaningful_text(text):
+        return {
+            "error": "Введённый текст не содержит осмысленного описания характера. "
+                     "Пожалуйста, опишите личностные качества человека (например: «спокойный, усидчивый, интроверт»)."
+        }
+
     text_lower = text.lower()
     scores = {}
-    
-    # Подсчёт совпадений по ключевым словам
+
     for sport, rule in SPORT_RULES.items():
-        matches = 0
-        for keyword in rule["keywords"]:
-            if keyword in text_lower:
-                matches += 1
-        
-        # Применяем фильтр по возрасту
+        matches = sum(1 for keyword in rule["keywords"] if keyword in text_lower)
+        # Исключаем спорт, если возраст меньше минимального
         if age is not None and age < rule.get("min_age", 0):
-            matches = 0  # Исключаем, если слишком молод
-        
+            matches = 0
         scores[sport] = matches
-    
-    # Находим лучший результат
+
     best_sport = max(scores, key=scores.get)
     best_score = scores[best_sport]
-    
-    if best_score == 0:
+
+    # Если есть совпадения — даём рекомендацию
+    if best_score > 0:
+        confidence = min(95, int(best_score / len(SPORT_RULES[best_sport]["keywords"]) * 120))
+        reason = SPORT_RULES[best_sport]["reason"]
+        if age is not None and gender:
+            reason += f" {SPORT_RULES[best_sport]['gender_notes'].get(gender, '')}"
         return {
-            "sport": "Универсальный спорт (например, плавание)",
-            "confidence": 60,
-            "reason": "Не удалось определить чёткий психологический профиль. Рекомендуем начать с универсальных видов спорта."
+            "sport": best_sport,
+            "confidence": confidence,
+            "reason": reason
         }
-    
-    # Расчёт уверенности (макс. ~100%)
-    confidence = min(95, int(best_score / len(SPORT_RULES[best_sport]["keywords"]) * 120))
-    
-    # Формируем объяснение
-    reason = SPORT_RULES[best_sport]["reason"]
-    if age is not None and gender:
-        reason += f" {SPORT_RULES[best_sport]['gender_notes'].get(gender, '')}"
-    
+
+    # Если нет совпадений, но текст осмысленный
     return {
-        "sport": best_sport,
-        "confidence": confidence,
-        "reason": reason
+        "sport": "Универсальный спорт (например, плавание)",
+        "confidence": 60,
+        "reason": "Описание характера не содержит явных признаков, связанных с конкретными видами спорта. "
+                  "Рекомендуем начать с универсальных видов, таких как плавание или лёгкая атлетика."
     }
 
+# === FLASK-ПРИЛОЖЕНИЕ ===
 app = Flask(__name__)
 
 @app.route('/')
@@ -61,11 +76,14 @@ def analyze_text():
     data = request.get_json()
     if not data:
         return jsonify({"error": "Неверный формат данных"}), 400
-    
+
     text = data.get('text', '').strip()
     age = data.get('age')
     gender = data.get('gender')
-    
+
+    if not text:
+        return jsonify({"error": "Пожалуйста, введите описание характера."}), 400
+
     # Валидация возраста
     try:
         age = int(age) if age else None
@@ -73,11 +91,13 @@ def analyze_text():
             return jsonify({"error": "Возраст должен быть от 5 до 100 лет"}), 400
     except (ValueError, TypeError):
         age = None
-    
-    if not text:
-        return jsonify({"error": "Пожалуйста, введите описание характера."}), 400
-    
+
     result = analyze_with_rules(text, age=age, gender=gender)
+
+    # Если функция вернула ошибку — отправляем её
+    if "error" in result:
+        return jsonify(result), 400
+
     return jsonify(result)
 
 @app.errorhandler(404)
@@ -85,4 +105,8 @@ def page_not_found(e):
     return "Страница не найдена", 404
 
 if __name__ == '__main__':
+    print("\n" + "="*50)
+    print("🚀 SignSport Expert System запущен!")
+    print("👉 Главная: http://127.0.0.1:5000")
+    print("="*50 + "\n")
     app.run(debug=True)

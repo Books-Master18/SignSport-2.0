@@ -18,5 +18,9 @@ function runAnalysis() {
             document.getElementById('reasonText').textContent = data.reason;
             document.getElementById('result').style.display = 'block';
         }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при анализе.');
     });
 }

@@ -598,3 +598,154 @@ footer {
 
 /*----------------------------------------*/
 
+/* ===== СТИЛИ ДЛЯ РЕЗУЛЬТАТА АНАЛИЗА ===== */
+
+.result-box {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
+    border-left: 5px solid #496F94;
+    display: none; /* ← только display управляет видимостью */
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.checkmark {
+    font-size: 24px;
+    color: #496F94;
+}
+
+.result-header strong {
+    font-size: 20px;
+    color: #f8f9fa;
+    margin-left: 10px;
+}
+
+.sport-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a365d;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.confidence {
+    font-size: 16px;
+    color: #496F94;
+    margin-bottom: 12px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.reason {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    line-height: 1.6;
+    color: #333;
+    font-size: 15px;
+}
+
+/* Альтернативные рекомендации */
+.alternative-recommendations h4 {
+    color: #496F94;
+    margin: 20px 0 15px 0;
+    font-size: 16px;
+}
+
+.alternatives-list {
+    display: grid;
+    gap: 12px;
+}
+
+.alternative-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 3px solid #6c757d;
+    transition: all 0.3s ease;
+}
+
+.alternative-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+    border-left-color: #496F94;
+}
+
+.alt-sport {
+    font-weight: 500;
+    color: #333;
+    font-size: 15px;
+}
+
+.alt-confidence {
+    background: #496F94;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Сообщения об ошибках */
+.error-message {
+    background: #f8d7da;
+    border-left: 4px solid #c0392b;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.error-message p {
+    margin: 0;
+    color: #721c24;
+}
+
+/* ------------------------------------------------- */
+
+/* текст перед фильтром */
+.textageandgender {
+  text-align: center;
+  margin: 10px 0 15px 0;
+}
+
+.textageandgender p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4682A9; /* или любой цвет из твоей палитры */
+  margin: 0; /* убирает стандартный отступ у <p> */
+}
+
+/* ------------------------------------------------- */
+
+/* Центрирование фильтров */
+.filters-center {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* расстояние между полями */
+  margin: 25px 0; /* отступ сверху и снизу */
+}
+
+/* Стиль для полей */
+.filters-center input,
+.filters-center select {
+  padding: 8px 12px;
+  border: 1px solid #30465A;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  background: white;
+}
