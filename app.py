@@ -33,8 +33,8 @@ def analyze_with_rules(text, age=None, gender=None):
     for sport, rule in SPORT_RULES.items():
         matches = sum(1 for keyword in rule["keywords"] if keyword in text_lower)
         # Исключаем спорт, если возраст меньше минимального
-        if age is not None and age < rule.get("min_age", 0):
-            matches = 0
+        #if age is not None and age < rule.get("min_age", 0):
+         #   matches = 0
         scores[sport] = matches
 
     best_sport = max(scores, key=scores.get)
@@ -44,8 +44,8 @@ def analyze_with_rules(text, age=None, gender=None):
     if best_score > 0:
         confidence = min(95, int(best_score / len(SPORT_RULES[best_sport]["keywords"]) * 120))
         reason = SPORT_RULES[best_sport]["reason"]
-        if age is not None and gender:
-            reason += f" {SPORT_RULES[best_sport]['gender_notes'].get(gender, '')}"
+       # if age is not None and gender:
+       #     reason += f" {SPORT_RULES[best_sport]['gender_notes'].get(gender, '')}"
         return {
             "sport": best_sport,
             "confidence": confidence,
@@ -78,21 +78,22 @@ def analyze_text():
         return jsonify({"error": "Неверный формат данных"}), 400
 
     text = data.get('text', '').strip()
-    age = data.get('age')
-    gender = data.get('gender')
+   # age = data.get('age')
+  #  gender = data.get('gender')
 
     if not text:
         return jsonify({"error": "Пожалуйста, введите описание характера."}), 400
 
     # Валидация возраста
-    try:
-        age = int(age) if age else None
-        if age is not None and (age < 5 or age > 100):
-            return jsonify({"error": "Возраст должен быть от 5 до 100 лет"}), 400
-    except (ValueError, TypeError):
-        age = None
+   # try:
+   #     age = int(age) if age else None
+   #     if age is not None and (age < 5 or age > 100):
+   #         return jsonify({"error": "Возраст должен быть от 5 до 100 лет"}), 400
+   # except (ValueError, TypeError):
+  #      age = None
 
-    result = analyze_with_rules(text, age=age, gender=gender)
+  #  result = analyze_with_rules(text, age=age, gender=gender)
+    result = analyze_with_rules(text)
 
     # Если функция вернула ошибку — отправляем её
     if "error" in result:
@@ -104,9 +105,11 @@ def analyze_text():
 def page_not_found(e):
     return "Страница не найдена", 404
 
+
+#запуск программы
 if __name__ == '__main__':
     print("\n" + "="*50)
-    print("🚀 SignSport Expert System запущен!")
+    print("🚀 Сайт SignSport запущен!")
     print("👉 Главная: http://127.0.0.1:5000")
     print("="*50 + "\n")
     app.run(debug=True)

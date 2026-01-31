@@ -1,10 +1,10 @@
 function runAnalysis() {
     const text = document.getElementById('reportInput').value.trim();
-    const ageStr = document.getElementById('age').value;
-    const gender = document.getElementById('gender').value || null;
+   // const ageStr = document.getElementById('age').value;
+    //const gender = document.getElementById('gender').value || null;
 
     // Преобразуем возраст в число или null
-    const age = ageStr ? parseInt(ageStr, 10) : null;
+   // const age = ageStr ? parseInt(ageStr, 10) : null;
 
     if (!text) {
         alert("Пожалуйста, введите описание характера");
@@ -14,7 +14,8 @@ function runAnalysis() {
     fetch('/api/analyze', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({text, age, gender})
+        //body: JSON.stringify({text, age, gender})
+        body: JSON.stringify({text})
     })
     .then(response => response.json())
     .then(data => {
