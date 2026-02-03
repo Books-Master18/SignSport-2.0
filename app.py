@@ -16,11 +16,12 @@ def is_meaningful_text(text):
     return len(russian_words) >= 3
 
 # === ОСНОВНАЯ ЛОГИКА АНАЛИЗА ===
-def analyze_with_rules(text, age=None, gender=None):
+
+
+def analyze_with_rules(text):
     """
-    Анализирует текст и возвращает рекомендацию на основе SPORT_RULES
+    Анализирует текст и возвращает рекомендацию на основе SPORT_RULES (с весами)
     """
-    # Проверка на бессмысленный ввод
     if not is_meaningful_text(text):
         return {
             "error": "Введённый текст не содержит осмысленного описания характера. "
@@ -31,28 +32,27 @@ def analyze_with_rules(text, age=None, gender=None):
     scores = {}
 
     for sport, rule in SPORT_RULES.items():
-        matches = sum(1 for keyword in rule["keywords"] if keyword in text_lower)
-        # Исключаем спорт, если возраст меньше минимального
-        #if age is not None and age < rule.get("min_age", 0):
-         #   matches = 0
-        scores[sport] = matches
+        total_weight = 0
+        # Проходим по каждому слову и его весу
+        for keyword, weight in rule["keywords"].items():
+            if keyword in text_lower:
+                total_weight += weight
+        scores[sport] = total_weight
 
     best_sport = max(scores, key=scores.get)
     best_score = scores[best_sport]
 
-    # Если есть совпадения — даём рекомендацию
     if best_score > 0:
-        confidence = min(95, int(best_score / len(SPORT_RULES[best_sport]["keywords"]) * 120))
+        # Максимально возможный балл для этого вида спорта
+        max_possible = sum(rule["keywords"].values())
+        confidence = min(95, int((best_score / max_possible) * 120))
         reason = SPORT_RULES[best_sport]["reason"]
-       # if age is not None and gender:
-       #     reason += f" {SPORT_RULES[best_sport]['gender_notes'].get(gender, '')}"
         return {
             "sport": best_sport,
             "confidence": confidence,
             "reason": reason
         }
 
-    # Если нет совпадений, но текст осмысленный
     return {
         "sport": "Универсальный спорт (например, плавание)",
         "confidence": 60,
