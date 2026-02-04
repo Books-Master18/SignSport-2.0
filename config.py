@@ -1,2 +1,2 @@
 # просто менять число - % прогресса работы над проектом
-PROJECT_PROGRESS = 75
+PROJECT_PROGRESS = 70

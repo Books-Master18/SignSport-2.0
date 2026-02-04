@@ -63,6 +63,15 @@
         </ul>
     </div>
 
+<!-- Индикатор выполнения проекта -->
+<div class="project-progress">
+  <p>Статус разработки проекта</p>
+  <div class="progress-container">
+    <div class="progress-bar" style="width: {{ progress }}%;"></div>
+  </div>
+  <p>Выполнено: <strong>{{ progress }}%</strong></p>
+</div>
+
 <!-- Оформление кнопки для перехода на нейросеть -->
     <div class="AI">
         <img src="{{ url_for('static', filename='images/photo.png') }}" alt="mini capibara">

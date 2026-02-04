@@ -66,11 +66,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('Main_page.html')
+    return render_template('Main_page.html', progress=PROJECT_PROGRESS)
 
 @app.route('/analyze')
 def analyze_page():
-    return render_template('SignSport-2.0.html', progress=PROJECT_PROGRESS)
+    return render_template('SignSport-2.0.html')
 
 
 @app.route('/api/analyze', methods=['POST'])
