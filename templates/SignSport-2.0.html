@@ -56,6 +56,16 @@
 </select>
 </div>--> 
 
+<!-- Индикатор выполнения проекта -->
+<div class="project-progress">
+  <h4>Статус разработки проекта</h4>
+  <div class="progress-container">
+    <div class="progress-bar" style="width: {{ progress }}%;"></div>
+  </div>
+  <p>Выполнено: <strong>{{ progress }}%</strong></p>
+</div>
+
+
     <!-- Место для ввода характера человека -->
     <div class="upload-box">
         <textarea id="reportInput" placeholder="Напишите сюда полученную картину характера человека и узнайте - какой вид спорта ему может подойти!"></textarea>

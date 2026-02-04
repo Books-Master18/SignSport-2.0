@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 import re
 from sport_rules import SPORT_RULES
+from config import PROJECT_PROGRESS
 
 # === ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ: проверка осмысленности текста ===
 def is_meaningful_text(text):
@@ -69,7 +70,8 @@ def home():
 
 @app.route('/analyze')
 def analyze_page():
-    return render_template('SignSport-2.0.html')
+    return render_template('SignSport-2.0.html', progress=PROJECT_PROGRESS)
+
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze_text():
