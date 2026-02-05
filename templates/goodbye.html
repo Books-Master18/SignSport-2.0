@@ -4,34 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>До свидания!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.jpg') }}" sizes="16x16" type="image/jpeg">
+</head>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #5CB85C;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: white;
-            font-family: 'Montserrat', sans-serif;
-            text-align: center;
-            overflow: hidden;
-        }
-        video {
-            max-width: 90%;
-            max-height: 70vh;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-        p {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 20px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-    </style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #5CB85C; /* ← единый фон */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    video {
+        max-width: 90%;
+        max-height: 70vh;
+        border-radius: 12px;
+        /* Добавляем тень, чтобы видео "сливалось" с фоном */
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+        /* Опционально: лёгкая рамка того же цвета */
+        border: 2px solid rgba(92, 184, 92, 0.3);
+    }
+
+    p {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 20px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+</style>
 </head>
 <body>
     <video autoplay muted loop playsinline>

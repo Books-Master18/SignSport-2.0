@@ -64,9 +64,16 @@ def analyze_with_rules(text):
 # === FLASK-ПРИЛОЖЕНИЕ ===
 app = Flask(__name__)
 
+@app.context_processor
+def inject_global_vars():
+    return {
+        'progress': PROJECT_PROGRESS
+    }
+
+
 @app.route('/')
 def home():
-    return render_template('Main_page.html', progress=PROJECT_PROGRESS)
+    return render_template('Main_page.html')
 
 @app.route('/analyze')
 def analyze_page():
