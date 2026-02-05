@@ -13,6 +13,7 @@
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.jpg') }}" sizes="16x16" type="image/jpeg">
 </head>
 
+
 <body>
 
     <!-- Баннер -->
@@ -128,7 +129,33 @@
         </div>
     </div>
 
-    <div><p>Диксдеймер - результаты могут не совпаатть с вашими ожиданиями, так как портрет вашего характера был получен на основании графологического анализа. За счет него он может показатль то, чего вы и сами может о себе не можете знать</p></div>
+   <!-- окно предупреждения -->
+<div id="warningModal" class="modal">
+  <div class="modal-content">
+    <h3> Предупреждение</h3>
+    <p>
+      Результаты могут не совпасть с вашими ожиданиями, так как портрет вашего характера был получен на основании графологического анализа. 
+      За счёт него система может показать то, чего вы сами о себе, возможно, не знаете.
+    </p>
+    <div class="modal-buttons">
+      <button id="acceptBtn">Да, я понимаю и хочу продолжить</button>
+      <button id="declineBtn">Нет, я не готов(а)</button>
+    </div>
+  </div>
+</div>
+
+    <!-- Блок для "отказа" — скрыт по умолчанию -->
+<!-- Полноэкранный экран с видео-уткой -->
+<div id="goodbyeScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #5CB85C; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; text-align: center; padding: 20px; box-sizing: border-box;">
+  <video autoplay muted loop playsinline style="max-width: 90%; max-height: 70vh; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+    <source src="{{ url_for('static', filename='videos/funny.mp4') }}" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+  </video>
+  <p style="font-size: 24px; color: white; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.3); margin-top: 20px;">
+    Ну ладно... Может, в другой раз? 😊
+  </p>
+</div>
+
 
     <footer>
         <div>
@@ -139,5 +166,6 @@
     <!-- Скрипты -->
     <script src="{{ url_for('static', filename='js/analyze.js') }}"></script>
     <script src="{{ url_for('static', filename='js/carousel.js') }}"></script>
+
 </body>
 </html>

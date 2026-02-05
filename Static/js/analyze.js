@@ -1,34 +1,44 @@
-function runAnalysis() {
-    const text = document.getElementById('reportInput').value.trim();
-   // const ageStr = document.getElementById('age').value;
-    //const gender = document.getElementById('gender').value || null;
-
-    // Преобразуем возраст в число или null
-   // const age = ageStr ? parseInt(ageStr, 10) : null;
-
-    if (!text) {
-        alert("Пожалуйста, введите описание характера");
+document.addEventListener('DOMContentLoaded', function () {
+    // 🔑 КЛЮЧЕВАЯ ПРОВЕРКА: только на странице анализа
+    if (window.location.pathname !== '/analyze') {
         return;
     }
 
-    fetch('/api/analyze', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        //body: JSON.stringify({text, age, gender})
-        body: JSON.stringify({text})
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert(data.error);
-        } else {
-            document.getElementById('recommendedSport').textContent = data.sport;
-            document.getElementById('confidence').textContent = data.confidence;
-            document.getElementById('result').style.display = 'block';
-        }
-    })
-    .catch(error => {
-        console.error('Ошибка:', error);
-        alert('Не удалось подключиться к серверу.');
-    });
-}
+    const inputField = document.getElementById('reportInput');
+    if (!inputField) return;
+
+    const modal = document.getElementById('warningModal');
+    const acceptBtn = document.getElementById('acceptBtn');
+    const declineBtn = document.getElementById('declineBtn');
+
+    // Блокируем форму
+    inputField.disabled = true;
+    const analyzeBtn = document.querySelector('.analyze-button');
+    if (analyzeBtn) analyzeBtn.disabled = true;
+
+    // Показываем модалку
+    if (modal) modal.style.display = 'block';
+
+    // Обработка "Да"
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', function () {
+            if (modal) modal.style.display = 'none';
+            inputField.disabled = false;
+            if (analyzeBtn) analyzeBtn.disabled = false;
+        });
+    }
+
+    // Обработка "Нет"
+    if (declineBtn) {
+        declineBtn.addEventListener('click', function () {
+            const goodbye = document.getElementById('goodbyeScreen');
+            if (goodbye) {
+                document.body.innerHTML = '';
+                document.body.style.margin = '0';
+                document.body.style.padding = '0';
+                document.body.style.overflow = 'hidden';
+                document.body.appendChild(goodbye);
+            }
+        });
+    }
+});
