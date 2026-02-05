@@ -600,23 +600,25 @@ footer {
 
 /* ===== СТИЛИ ДЛЯ РЕЗУЛЬТАТА АНАЛИЗА ===== */
 
-.result-box {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 25px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
-    border-left: 5px solid #496F94;
-    display: none; /* ← только display управляет видимостью */
+.result-header strong {
+    font-size: 20px;
+    color: white;
+    margin-left: 10px;
 }
 
 .result-header {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
     padding-bottom: 15px;
-    border-bottom: 2px solid #e9ecef;
+    border-bottom: 5px solid white;
+}
+
+.result-container h3 {
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    margin-left: 7px;
 }
 
 .checkmark {
@@ -624,43 +626,28 @@ footer {
     color: #496F94;
 }
 
-.result-header strong {
-    font-size: 20px;
-    color: #f8f9fa;
-    margin-left: 10px;
-}
-
 .sport-name {
-    font-size: 28px;
-    font-weight: 700;
-    color: #1a365d;
+    font-size: 38px;
+    font-weight: 680;
+    color: white;
+    margin-top: 12px;
     margin-bottom: 10px;
     text-align: center;
 }
 
 .confidence {
-    font-size: 16px;
-    color: #496F94;
-    margin-bottom: 12px;
+    font-size: 25px;
+    color: white;
+    margin-bottom: 50px;
     text-align: center;
     font-weight: 500;
 }
 
-.reason {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 10px;
-    line-height: 1.6;
-    color: #333;
-    font-size: 15px;
-}
-
 /* Альтернативные рекомендации */
 .alternative-recommendations h4 {
-    color: #496F94;
+    color: white;
     margin: 20px 0 15px 0;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .alternatives-list {
@@ -675,7 +662,7 @@ footer {
     padding: 12px 15px;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 3px solid #6c757d;
+    border-left: 3px solid #30465A;
     transition: all 0.3s ease;
 }
 
@@ -688,7 +675,7 @@ footer {
 .alt-sport {
     font-weight: 500;
     color: #333;
-    font-size: 15px;
+    font-size: 22px;
 }
 
 .alt-confidence {
@@ -814,8 +801,9 @@ footer {
 }
 
 .modal-content h3 {
+  font-size: 35px;
   margin-top: 0;
-  color: #d35400;
+  color: #30465A;
 }
 
 .modal-buttons {
@@ -829,6 +817,12 @@ footer {
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Эффект при наведении — приподнимаем кнопку */
+.modal-buttons button:hover {
+  transform: translateY(-3px);
 }
 
 #acceptBtn {
@@ -836,10 +830,29 @@ footer {
   color: white;
 }
 
+#acceptBtn:hover {
+  background-color: #45a049; /* чуть темнее оригинала */
+}
+
+
 #declineBtn {
   background-color: #e74c3c;
   color: white;
 }
+
+#declineBtn:hover {
+  background-color: #d32f2f; /* чуть темнее оригинала */
+}
+
+/* Стиль для картинки в модальном окне */
+.modal-image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 15px;
+  display: block;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
 
 #reportInput:disabled {
   background-color: #f0f0f0;
@@ -847,7 +860,7 @@ footer {
 }
 
 /* ------------------------------------------------- */
-/* Контейнер примера */
+/* Контейнер примера копирование*/
 .example-card {
   position: relative;
   padding: 16px;

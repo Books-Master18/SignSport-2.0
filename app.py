@@ -42,15 +42,10 @@ for sport, rule in SPORT_RULES.items():
     PREPROCESSED_RULES[sport] = preprocessed
 
 def analyze_with_rules(text):
-    """
-    Анализ с гибридной лемматизацией:
-    - Фразы (например, "работает в команде") → поиск подстроки
-    - Отдельные слова (например, "спокоен") → поиск по леммам
-    """
     if not is_meaningful_text(text):
         return {
             "error": "Введённый текст не содержит осмысленного описания характера. "
-                     "Пожалуйста, опишите личностные качества человека"
+                     "Пожалуйста, опишите личностные качества человека."
         }
 
     text_lower = text.lower()
@@ -62,37 +57,56 @@ def analyze_with_rules(text):
         for phrase, data in keywords.items():
             weight = data["weight"]
             if data["is_phrase"]:
-                # Фраза: ищем точное совпадение как подстроку
                 if phrase in text_lower:
                     total_weight += weight
             else:
-                # Слово: ищем по леммам
                 if data["lemmas"] & user_lemmas:
                     total_weight += weight
         scores[sport] = total_weight
 
-    best_sport = max(scores, key=scores.get)
-    best_score = scores[best_sport]
+    # Сортируем по убыванию баллов
+    sorted_sports = sorted(scores.items(), key=lambda x: x[1], reverse=True)
 
-    if best_score > 0:
-        # Максимальный балл для этого вида спорта
+    # Формируем основную рекомендацию
+    best_sport, best_score = sorted_sports[0]
+
+    if best_score <= 0:
+        main_result = {
+            "sport": "Универсальный спорт (например, плавание)",
+            "confidence": 60,
+            "reason": "Описание характера не содержит явных признаков..."
+        }
+        alternatives = []
+    else:
+        # Основной результат
         max_possible = sum(
             data["weight"] for data in PREPROCESSED_RULES[best_sport].values()
         )
         confidence = min(95, int((best_score / max_possible) * 120))
         reason = SPORT_RULES[best_sport].get("reason", "")
-        return {
+        main_result = {
             "sport": best_sport,
             "confidence": confidence,
             "reason": reason
         }
 
-    return {
-        "sport": "Универсальный спорт (например, плавание)",
-        "confidence": 60,
-        "reason": "Описание характера не содержит явных признаков..."
-    }
+        # Альтернативы: следующие 2 спорта с ненулевым весом
+        alternatives = []
+        for sport, score in sorted_sports[1:3]:  # следующие два
+            if score > 0:
+                alt_max = sum(data["weight"] for data in PREPROCESSED_RULES[sport].values())
+                alt_conf = min(90, int((score / alt_max) * 100)) if alt_max > 0 else 50
+                alternatives.append({
+                    "sport": sport,
+                    "confidence": alt_conf
+                })
 
+    return {
+        "sport": main_result["sport"],
+        "confidence": main_result["confidence"],
+        "reason": main_result["reason"],
+        "additional_recommendations": alternatives
+    }
 # === FLASK-ПРИЛОЖЕНИЕ ===
 app = Flask(__name__)
 
@@ -127,6 +141,7 @@ def analyze_text():
     if "error" in result:
         return jsonify(result), 400
 
+    # Убираем "success", потому что наличие "sport" = успех
     return jsonify(result)
 
 @app.errorhandler(404)
