@@ -145,9 +145,8 @@
 </div>
 
     <!-- Блок для "отказа" — скрыт по умолчанию -->
-<!-- Полноэкранный экран с видео-уткой -->
-<div id="goodbyeScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #5CB85C; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; text-align: center; padding: 20px; box-sizing: border-box;">
-  <video autoplay muted loop playsinline style="max-width: 90%; max-height: 70vh; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+<div id="goodbyeScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #5cb85c; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; text-align: center; padding: 20px; box-sizing: border-box;">
+  <video autoplay muted loop playsinline style="max-width: 90%; max-height: 70vh; border-radius: 12px;">
     <source src="{{ url_for('static', filename='videos/funny.mp4') }}" type="video/mp4">
     Ваш браузер не поддерживает видео.
   </video>

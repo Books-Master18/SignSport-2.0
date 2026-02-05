@@ -72,6 +72,9 @@ def home():
 def analyze_page():
     return render_template('SignSport-2.0.html')
 
+@app.route('/goodbye')
+def goodbye():
+    return render_template('goodbye.html')
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze_text():
