@@ -845,3 +845,65 @@ footer {
   background-color: #f0f0f0;
   cursor: not-allowed;
 }
+
+/* ------------------------------------------------- */
+/* Контейнер примера */
+.example-card {
+  position: relative;
+  padding: 16px;
+}
+
+/* Кнопка копирования */
+.copy-code-btn {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Стили кнопки */
+  background: #e9ecef;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* лёгкая тень для выделения */
+}
+
+.copy-code-btn:hover {
+  background: #dcdfe3;
+}
+
+/* Всплывающая подсказка */
+.copy-code-btn::after {
+  content: "Копировать";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  margin-bottom: 6px;
+}
+
+.copy-code-btn:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.example-card p {
+  margin: 0;
+  padding-right: 40px;
+}

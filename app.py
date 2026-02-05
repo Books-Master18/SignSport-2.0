@@ -2,26 +2,50 @@ from flask import Flask, request, jsonify, render_template
 import re
 from sport_rules import SPORT_RULES
 from config import PROJECT_PROGRESS
+import pymorphy3
 
-# === ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ: проверка осмысленности текста ===
+# === Инициализация ===
+morph = pymorphy3.MorphAnalyzer()
+
+# === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
+
 def is_meaningful_text(text):
-    """
-    Проверяет, похож ли текст на осмысленное описание характера.
-    Требования:
-    - минимум 20 символов
-    - минимум 3 русских слова длиной >= 3 букв
-    """
+    """Проверяет, похож ли текст на осмысленное описание характера."""
     if len(text) < 20:
         return False
     russian_words = re.findall(r'[а-яё]{3,}', text.lower())
     return len(russian_words) >= 3
 
-# === ОСНОВНАЯ ЛОГИКА АНАЛИЗА ===
+def lemmatize_text_to_set(text):
+    """Превращает текст в множество лемм (без пунктуации и регистра)."""
+    words = re.findall(r'[а-яё]+', text.lower())
+    lemmas = set()
+    for word in words:
+        parsed = morph.parse(word)
+        if parsed:
+            lemma = parsed[0].normal_form
+            lemmas.add(lemma)
+    return lemmas
 
+# === Предварительная обработка базы знаний (один раз при запуске) ===
+PREPROCESSED_RULES = {}
+for sport, rule in SPORT_RULES.items():
+    preprocessed = {}
+    for phrase, weight in rule.get("keywords", {}).items():
+        is_phrase = " " in phrase
+        lemmas = lemmatize_text_to_set(phrase) if not is_phrase else set()
+        preprocessed[phrase] = {
+            "weight": weight,
+            "lemmas": lemmas,
+            "is_phrase": is_phrase
+        }
+    PREPROCESSED_RULES[sport] = preprocessed
 
 def analyze_with_rules(text):
     """
-    Анализирует текст и возвращает рекомендацию на основе SPORT_RULES (с весами)
+    Анализ с гибридной лемматизацией:
+    - Фразы (например, "работает в команде") → поиск подстроки
+    - Отдельные слова (например, "спокоен") → поиск по леммам
     """
     if not is_meaningful_text(text):
         return {
@@ -30,24 +54,33 @@ def analyze_with_rules(text):
         }
 
     text_lower = text.lower()
+    user_lemmas = lemmatize_text_to_set(text)
     scores = {}
 
-    for sport, rule in SPORT_RULES.items():
+    for sport, keywords in PREPROCESSED_RULES.items():
         total_weight = 0
-        # Проходим по каждому слову и его весу
-        for keyword, weight in rule["keywords"].items():
-            if keyword in text_lower:
-                total_weight += weight
+        for phrase, data in keywords.items():
+            weight = data["weight"]
+            if data["is_phrase"]:
+                # Фраза: ищем точное совпадение как подстроку
+                if phrase in text_lower:
+                    total_weight += weight
+            else:
+                # Слово: ищем по леммам
+                if data["lemmas"] & user_lemmas:
+                    total_weight += weight
         scores[sport] = total_weight
 
     best_sport = max(scores, key=scores.get)
     best_score = scores[best_sport]
 
     if best_score > 0:
-        # Максимально возможный балл для этого вида спорта
-        max_possible = sum(rule["keywords"].values())
+        # Максимальный балл для этого вида спорта
+        max_possible = sum(
+            data["weight"] for data in PREPROCESSED_RULES[best_sport].values()
+        )
         confidence = min(95, int((best_score / max_possible) * 120))
-        reason = SPORT_RULES[best_sport]["reason"]
+        reason = SPORT_RULES[best_sport].get("reason", "")
         return {
             "sport": best_sport,
             "confidence": confidence,
@@ -57,8 +90,7 @@ def analyze_with_rules(text):
     return {
         "sport": "Универсальный спорт (например, плавание)",
         "confidence": 60,
-        "reason": "Описание характера не содержит явных признаков, связанных с конкретными видами спорта. "
-                  "Рекомендуем начать с универсальных видов, таких как плавание или лёгкая атлетика."
+        "reason": "Описание характера не содержит явных признаков..."
     }
 
 # === FLASK-ПРИЛОЖЕНИЕ ===
@@ -66,10 +98,7 @@ app = Flask(__name__)
 
 @app.context_processor
 def inject_global_vars():
-    return {
-        'progress': PROJECT_PROGRESS
-    }
-
+    return {'progress': PROJECT_PROGRESS}
 
 @app.route('/')
 def home():
@@ -90,24 +119,11 @@ def analyze_text():
         return jsonify({"error": "Неверный формат данных"}), 400
 
     text = data.get('text', '').strip()
-   # age = data.get('age')
-  #  gender = data.get('gender')
-
     if not text:
         return jsonify({"error": "Пожалуйста, введите описание характера."}), 400
 
-    # Валидация возраста
-   # try:
-   #     age = int(age) if age else None
-   #     if age is not None and (age < 5 or age > 100):
-   #         return jsonify({"error": "Возраст должен быть от 5 до 100 лет"}), 400
-   # except (ValueError, TypeError):
-  #      age = None
-
-  #  result = analyze_with_rules(text, age=age, gender=gender)
     result = analyze_with_rules(text)
 
-    # Если функция вернула ошибку — отправляем её
     if "error" in result:
         return jsonify(result), 400
 
@@ -117,8 +133,6 @@ def analyze_text():
 def page_not_found(e):
     return "Страница не найдена", 404
 
-
-#запуск программы
 if __name__ == '__main__':
     print("\n" + "="*50)
     print("🚀 Сайт SignSport запущен!")

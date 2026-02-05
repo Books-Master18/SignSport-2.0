@@ -54,3 +54,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // Инициализация
   updateReview();
 });
+
+
+// Добавляем обработчик ко всем кнопкам копирования
+document.querySelectorAll('.copy-code-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        // Ищем <p> внутри родительского .example-card
+        const card = this.closest('.example-card');
+        const textElement = card.querySelector('p');
+        if (!textElement) return;
+
+        const text = textElement.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const originalIcon = this.innerHTML;
+            this.innerHTML = '✅';
+            setTimeout(() => {
+                this.innerHTML = originalIcon;
+            }, 2000);
+        });
+    });
+});
