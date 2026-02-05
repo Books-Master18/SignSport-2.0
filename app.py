@@ -82,7 +82,7 @@ def analyze_with_rules(text):
         max_possible = sum(
             data["weight"] for data in PREPROCESSED_RULES[best_sport].values()
         )
-        confidence = min(95, int((best_score / max_possible) * 120))
+        confidence = min(95, int((best_score / max_possible) * 100))
         reason = SPORT_RULES[best_sport].get("reason", "")
         main_result = {
             "sport": best_sport,
