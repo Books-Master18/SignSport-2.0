@@ -24,7 +24,6 @@ function runAnalysis() {
         } else {
             document.getElementById('recommendedSport').textContent = data.sport;
             document.getElementById('confidence').textContent = data.confidence;
-            document.getElementById('reasonText').textContent = data.reason;
             document.getElementById('result').style.display = 'block';
         }
     })
