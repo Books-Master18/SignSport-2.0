@@ -66,8 +66,6 @@ def analyze_with_rules(text):
 
     # Сортируем по убыванию баллов
     sorted_sports = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-
-    # Формируем основную рекомендацию
     best_sport, best_score = sorted_sports[0]
 
     if best_score <= 0:
@@ -78,24 +76,26 @@ def analyze_with_rules(text):
         }
         alternatives = []
     else:
-        # Основной результат
-        max_possible = sum(
-            data["weight"] for data in PREPROCESSED_RULES[best_sport].values()
-        )
-        confidence = min(95, int((best_score / max_possible) * 100))
-        reason = SPORT_RULES[best_sport].get("reason", "")
+        # 🔥 ИСПРАВЛЕНО: используем max_score из SPORT_RULES
+        rule = SPORT_RULES[best_sport]
+        max_possible = rule.get("max_score", sum(data["weight"] for data in PREPROCESSED_RULES[best_sport].values()))
+        
+        # Уверенность от 50% до 95%
+        confidence = min(95, max(50, int((best_score / max_possible) * 100)))
+        reason = rule.get("reason", "")
         main_result = {
             "sport": best_sport,
             "confidence": confidence,
             "reason": reason
         }
 
-        # Альтернативы: следующие 2 спорта с ненулевым весом
+        # Альтернативы
         alternatives = []
-        for sport, score in sorted_sports[1:3]:  # следующие два
+        for sport, score in sorted_sports[1:3]:
             if score > 0:
-                alt_max = sum(data["weight"] for data in PREPROCESSED_RULES[sport].values())
-                alt_conf = min(90, int((score / alt_max) * 100)) if alt_max > 0 else 50
+                alt_rule = SPORT_RULES[sport]
+                alt_max = alt_rule.get("max_score", sum(data["weight"] for data in PREPROCESSED_RULES[sport].values()))
+                alt_conf = min(90, max(40, int((score / alt_max) * 100))) if alt_max > 0 else 50
                 alternatives.append({
                     "sport": sport,
                     "confidence": alt_conf
