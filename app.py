@@ -112,10 +112,6 @@ def analyze_with_rules(text):
         "additional_recommendations": alternatives
     }
 
-
-
-
-
 # === FLASK-ПРИЛОЖЕНИЕ ===
 app = Flask(__name__)
 
