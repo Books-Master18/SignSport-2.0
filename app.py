@@ -60,7 +60,7 @@ def expand_text_with_synonyms(user_lemmas, normalized_synonyms):
 # === Анализ текста ===
 def analyze_with_rules(text):
     if not is_meaningful_text(text):
-        return {"error": "..."}
+        return {"error": "Текст слишком короткий или не содержит описания характера."}
 
     user_lemmas = lemmatize_text_to_set(text)
     user_concepts = expand_text_with_synonyms(user_lemmas, NORMALIZED_SYNONYMS)
@@ -75,15 +75,32 @@ def analyze_with_rules(text):
                 total_weight += weight
         scores[sport] = total_weight
 
-    # 2. Применяем НЕГАТИВНЫЕ МАРКЕРЫ (до сортировки!)
+    # 2. Применяем НЕГАТИВНЫЕ МАРКЕРЫ (если есть)
     if "потребность_в_одобрении" in user_concepts:
         scores["Плавание🏊"] = max(0, scores.get("Плавание🏊", 0) - 15)
 
-    # 3. Сортируем по убыванию баллов
+    # 3. Сортируем по убыванию баллов (для последующего расчёта)
     sorted_sports = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-    best_sport, best_score = sorted_sports[0]
 
-    if best_score <= 0:
+    # === НОВАЯ ЛОГИКА: формируем рекомендации с confidence и сортируем по ней ===
+    all_recommendations = []
+    for sport, score in sorted_sports:
+        if score <= 0:
+            continue
+        rule = SPORT_RULES[sport]
+        keywords = rule.get("keywords", {})
+        max_possible = sum(keywords.values()) if keywords else 1
+        # Рассчитываем уверенность как процент от максимума
+        conf = min(95, max(50, int((score / max_possible) * 100)))
+        reason = rule.get("reason", "")
+        all_recommendations.append({
+            "sport": sport,
+            "confidence": conf,
+            "reason": reason
+        })
+
+    # Если нет подходящих видов
+    if not all_recommendations:
         return {
             "sport": "Универсальный спорт (например, плавание)",
             "confidence": 60,
@@ -91,25 +108,20 @@ def analyze_with_rules(text):
             "additional_recommendations": []
         }
 
-    rule = SPORT_RULES[best_sport]
-    max_possible = rule.get("max_score", sum(rule.get("keywords", {}).values()))
-    confidence = min(95, max(50, int((best_score / max_possible) * 100)))
-    reason = rule.get("reason", "")
+    # 🔥 СОРТИРУЕМ ПО УВЕРЕННОСТИ (confidence)!
+    all_recommendations.sort(key=lambda x: x["confidence"], reverse=True)
 
-    # Альтернативы
-    alternatives = []
-    for sport, score in sorted_sports[1:3]:
-        if score > 0:
-            alt_rule = SPORT_RULES[sport]
-            alt_max = alt_rule.get("max_score", sum(alt_rule.get("keywords", {}).values()))
-            alt_conf = min(90, max(40, int((score / alt_max) * 100))) if alt_max > 0 else 50
-            alternatives.append({"sport": sport, "confidence": alt_conf})
+    main = all_recommendations[0]
+    alternatives = all_recommendations[1:3]
 
     return {
-        "sport": best_sport,
-        "confidence": confidence,
-        "reason": reason,
-        "additional_recommendations": alternatives
+        "sport": main["sport"],
+        "confidence": main["confidence"],
+        "reason": main["reason"],
+        "additional_recommendations": [
+            {"sport": alt["sport"], "confidence": alt["confidence"]}
+            for alt in alternatives
+        ]
     }
 
 # === FLASK-ПРИЛОЖЕНИЕ ===
@@ -150,6 +162,8 @@ def analyze_text():
         return jsonify(result), 400
 
     return jsonify(result)
+
+
 
 @app.errorhandler(404)
 def page_not_found(e):
