@@ -8,9 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='images/favicon.jpg') }}" sizes="16x16" type="image/jpeg">
+    <link rel="stylesheet" href="{{ url_for('Static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('Static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('Static', filename='images/favicon.jpg') }}" sizes="16x16" type="image/jpeg">
 </head>
 
 
@@ -20,7 +20,7 @@
     <div class="header">
         <div class="navigation">
             <a href="{{ url_for('home') }}">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="SignSport">
+                <img src="{{ url_for('Static', filename='images/logo.png') }}" alt="SignSport">
             </a>
             <ul class="textnav">
                 <li><a href="{{ url_for('home') }}"><b>Главное</b></a></li>
@@ -205,7 +205,7 @@
       <button id="acceptBtn">Да, я понимаю и хочу продолжить</button>
       <button id="declineBtn">Нет, я не готов(а)</button>
     </div>
-    <img src="{{ url_for('static', filename='images/employee.png') }}" 
+    <img src="{{ url_for('Static', filename='images/employee.png') }}" 
          alt="Иллюстрация к предупреждению" 
          class="modal-image">
   </div>
@@ -219,8 +219,8 @@
     </footer>
 
     <!-- Скрипты -->
-    <script src="{{ url_for('static', filename='js/analyze.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/carousel.js') }}"></script>
+    <script src="{{ url_for('Static', filename='js/analyze.js') }}"></script>
+    <script src="{{ url_for('Static', filename='js/carousel.js') }}"></script>
 
 </body>
 </html>
