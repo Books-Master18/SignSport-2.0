@@ -1,0 +1,922 @@
+/* === ОБЩИЕ СТИЛИ === */
+
+/* тело сайта. Цвет фона и шрифт для всего сайта*/
+body {
+    background-color: #fffdef;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* -------------------------------------------------- */
+
+/* редактирование размера логотипа на баннере */
+.header img{
+    height: 100%;
+    width: 200px;
+}
+
+
+/*создание баннера - цвет, размер текста позиции, тень*/
+.header{
+    background-color: #4682A9;
+    color: #fffdef;              
+    height: 85px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
+}
+
+/* -------------------------------------------------- */
+
+/*пространство для текста на баннере*/
+
+.navigation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* -------------------------------------------------- */
+
+
+/*оформление текста на баннере*/
+
+.textnav
+{
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 22px; 
+    font-weight: 500;
+}
+
+.textnav>li{
+    padding-left: 20px;
+    margin-left: 20px;
+    position: relative;
+}
+
+.textnav>li:first-child::before{
+    display: none;
+}
+
+.textnav>li>a{
+    text-decoration: none;
+    color: #FFFBDE;
+    text-align: right;
+    margin-right: 25px;
+}
+
+/* -------------------------------------------------- */
+
+/* === СТИЛИ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ === */
+
+/* Распределение текста и картинки на сайте */
+.mainpage{
+    padding-top: 200px;
+    padding-bottom: 100px;
+}
+
+.mainpage img{
+    height: 347px;
+    width: 347px;
+}
+
+/* -------------------------------------------------- */
+
+/* Заголовок на главной и странице анализа */
+
+.maintext{
+    color: #749BC2;
+    font-size: 60px;
+    text-align: center
+}
+
+/* -------------------------------------------------- */
+
+/* Подзаголовок на главной странице */
+
+.subtitle{
+    color: #496F94;
+    font-size: 22px;
+    max-width: 1100px;      
+    margin: 0 auto;         
+    padding-left: 20px;    
+    padding-right: 20px;
+    text-align: center;
+}
+
+
+/* -------------------------------------------------- */
+
+/*фото капибары рядом с рамкой*/
+
+.tennis {
+    width: 347px;
+    height: 347px;
+    margin-top: -10px; 
+    margin-left: 80px;
+    display: block;
+}
+
+/*текст в рамке прямоугольной с оруглыми углами*/
+
+.text {
+    background: #4682A9;
+    color: #FFFBDE;
+    padding: 18px 26px;        /* отступы внутри рамки */
+    border-radius: 62px;
+    font-size: 28px;
+    text-align: center;
+    /* Центрирование по горизонтали */
+    display: block;
+    max-width: 1250px;
+    margin: -25px auto 0;    
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
+}
+
+/* -------------------------------------------------- */
+
+/*нзвание списка*/
+.name{
+    color: #406890;
+    font-size: 46px;
+    font-weight: 700;
+    padding: 0; 
+    margin-top: 100px;
+    margin-left: 70px;
+}
+
+/*капибара рядом со списком*/
+
+.athletic {
+    width: 347px;
+    height: 347px;
+    display: block;
+    margin-left: auto;     /* отталкивает от левого края */
+    margin-right: 30px;       /* прижимает к правому */
+    /* margin-top по желанию, например: */
+    margin-top: -180px;
+}
+
+/* Список этапов */
+
+.spisok{
+    color: #30465A;
+    font-size: 30px;
+}
+
+/* Элементы списка этапов (оформление блоков) */
+
+.textspisok {
+   background: linear-gradient(to bottom right,#AAD4E6, #4682A9);
+    padding: 30px 15px;
+    border-radius: 35px;
+    text-align: left;
+    display: block;
+    max-width: 900px;
+    margin: 18px 0 0 150px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    /* Плавная анимация для transform, background и тени */
+  transition: 
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.textspisok:hover {
+  background-color: #4682A9;
+  transform: translateY(-3px);
+}
+/* -------------------------------------------------- */
+
+/* Блок с надписью "Загрузите отчёт..." */
+
+.AI {
+  display: flex;
+  align-items: flex-start;
+  padding: 120px 0; /* чуть уменьшили отступы */
+  gap: 30px; /* расстояние между картинкой и текстом */
+}
+
+.AI img {
+  width: 370px;
+  height: 450px;
+  margin-left: 50px;
+  margin-top: 80px;
+}
+
+.AI-text {
+  margin: 90px 50px 0 auto; /* правый отступ 50px, левый — auto → прижато вправо */
+  text-align: center;
+  font-size: 40px;
+  color: #30465A;
+  max-width: 1000px; /* чтобы текст не растягивался на всю ширину */
+}
+
+
+/* Стрелка перед кнопкой */
+.arrow-container {
+    margin: 30px 0 50px 0;
+}
+
+.scroll-hint-arrow {
+    display: block;
+  height: 150px;
+  width: 170px;
+  margin-left: auto;
+  margin-right: 450px;
+  margin-top: -430px;
+    animation: bounce 2s infinite ease-in-out;
+}
+
+/* Стрелка перед кнопкой (анимация) */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(12px); /* На сколько пикселей опускается */
+    }
+}
+
+/* Стили кнопки "Проанализировать сейчас" */
+
+.butten-link {
+  text-decoration: none; /* убираем подчёркивание ссылки */
+  display: block;
+  text-align: center;
+}
+
+.butten {
+  background: #4682A9;
+  color: #FFFBDE;
+  padding: 20px;
+  border-radius: 15px;
+  font-size: 30px;
+  font-weight: 600;
+  margin: -20px 290px 0 auto;
+  max-width: 500px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  transition: 
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.butten:hover {
+  background-color: #4682A9;
+  transform: translateY(-3px);
+}
+
+/* -------------------------------------------------- */
+
+/* === СТИЛИЗАЦИЯ ПОДСКАЗКИ "О НАС" === */
+
+/* Стили для ссылки с подсказкой */
+.custom-tooltip {
+  position: relative;
+  text-decoration: none;
+  color: #FFFBDE;
+}
+
+.custom-tooltip b {
+  text-decoration: none;
+}
+
+/* Всплывающая подсказка*/
+.custom-tooltip .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed; 
+  top: 102px;
+  left: 50%;
+  transform: translateX(-10%);
+  background-color: #fffdef;
+  color: #30465A;
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  font-size: 21px;
+  line-height: 1.6;
+  width: 80%; /* фиксированная ширина относительно окна */
+  max-width: 750px;
+  text-align: center;
+  z-index: 1000;
+  white-space: normal;
+  word-wrap: break-word;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* Показываем при наведении */
+.custom-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* -------------------------------------------------- */
+
+/* === ФУТЕР === */
+
+footer {
+    color: #30465A;
+    font-size: 18px;
+    padding: 50px 0;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* -------------------------------------------------- */
+
+
+/* === СТИЛИ ДЛЯ СТРАНИЦЫ АНАЛИЗА === */
+
+.page{
+    padding-top: 65px;
+    padding-bottom: 40px;
+}
+
+/* Подзаголовок на странице анализа */
+
+.subtitle_two{
+    color: #496F94;
+    font-size: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+/* -------------------------------------------------- */
+
+/* Основной контейнер загрузки */
+#upload-container {
+  margin: 10px auto;
+  max-width: 1000px;
+}
+
+/* Поле ввода и кнопка анализа */
+.upload-box {
+    padding: 32px;
+    text-align: center;
+}
+
+.upload-icon {
+    max-width: 100px;
+    margin-bottom: 16px;
+}
+
+#reportInput {
+    width: 75%;
+    height: 170px;
+    padding: 12px;
+    margin: 16px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 18px;
+    resize: none;
+}
+
+.analyze-button {
+    background: #4682A9;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    font-size: 18px;        
+    font-weight: 600;             
+    border-radius: 12px; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(70, 130, 169, 0.25);
+    margin-top: 20px;
+}
+
+.analyze-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(70, 130, 169, 0.35);
+    background: #3a6d8c;
+}
+
+/* Блок результата */
+#result {
+    margin: 60px auto;
+    font-size: 20px;
+    color: #FFFBDE;
+    max-width: 800px;
+    padding: 12px 32px;
+    background: #4682A9;
+    border-radius: 10px;
+    display: none;
+}
+
+/* -------------------------------------------------- */
+
+/* === ПРИМЕРЫ ХАРАКТЕРА (КАРУСЕЛЬ) === */
+
+.page2{
+    padding-bottom: -39px;
+}
+
+.textexample{
+    margin-top: 50px;
+    color: #496F94;
+    font-size: 40px;
+    font-weight: 700;
+    margin-left: 100px;
+    text-align: left
+}
+
+/* -------------------------------------------------- */
+
+/* ------ Контейнер всей карусели ---- */
+.carousel-container {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  gap: 15px;
+  margin: 30px auto;
+  width: 100%;
+  max-width: 1000px;
+  padding: 0 15px;
+  position: relative;
+}
+
+/* Стили для меток пола и возраста */
+.demo-labels {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 16px;
+  color: #496F94;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 6px 12px;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+/* ------ счетчик ---- */
+
+.carousel-counter {
+  margin: 20px auto;
+  font-size: 16px;
+  color: #4682A9;
+  font-weight: 600;
+  text-align: center;
+  transition: opacity 0.2s;
+  min-width: 40px; /* чтобы цифры не "прыгали" */
+}
+
+/* ----- Сам блок карусели ----- */
+.carousel {
+  width: 100%;
+  max-width: 900px;
+  min-width: 50px;
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  padding: 25px;
+  box-sizing: border-box;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ---- Каждый текст ---- */
+.review {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* текст начинается сверху */
+  align-items: center;
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+  padding: 60px 20px 20px;
+  box-sizing: border-box;
+  /* Добавим прокрутку, если вдруг не влезет */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  /* РАЗРЕШИТЬ ВЫДЕЛЕНИЕ ТЕКСТА */
+  user-select: text;        /* для всех браузеров */
+  -webkit-user-select: text; /* для Safari */
+  pointer-events: none;
+}
+
+.review p {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: inherit;
+}
+
+.review.active {
+  opacity: 1;
+  pointer-events: auto; 
+}
+
+.left-arrow {
+  margin-right: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  margin-left: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  background: #f0f0f0;
+  border: none;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  color: #444;
+  flex-shrink: 0;
+}
+
+.left-arrow:hover {
+  background: #d8d8d8;
+}
+
+.right-arrow{
+  margin-right: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  margin-left: 10px;
+  margin-top: -10px;
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  border-radius: 100%;
+  background: #f0f0f0;
+  border: none;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  color: #444;
+  flex-shrink: 0;
+
+}
+
+.right-arrow:hover {
+  background: #d8d8d8;
+}
+
+/*----------------------------------------*/
+
+/* ===== СТИЛИ ДЛЯ РЕЗУЛЬТАТА АНАЛИЗА ===== */
+
+.result-header strong {
+    font-size: 20px;
+    color: white;
+    margin-left: 10px;
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 15px;
+    border-bottom: 5px solid white;
+}
+
+.result-container h3 {
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    margin-left: 7px;
+}
+
+.checkmark {
+    font-size: 24px;
+    color: #496F94;
+}
+
+.sport-name {
+    font-size: 38px;
+    font-weight: 680;
+    color: white;
+    margin-top: 12px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.confidence {
+    font-size: 25px;
+    color: white;
+    margin-bottom: 50px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Альтернативные рекомендации */
+.alternative-recommendations h4 {
+    color: white;
+    margin: 20px 0 15px 0;
+    font-size: 24px;
+}
+
+.alternatives-list {
+    display: grid;
+    gap: 12px;
+}
+
+.alternative-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 3px solid #30465A;
+    transition: all 0.3s ease;
+}
+
+.alternative-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+    border-left-color: #496F94;
+}
+
+.alt-sport {
+    font-weight: 500;
+    color: #333;
+    font-size: 22px;
+}
+
+.alt-confidence {
+    background: #496F94;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Сообщения об ошибках */
+.error-message {
+    background: #f8d7da;
+    border-left: 4px solid #c0392b;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.error-message p {
+    margin: 0;
+    color: #721c24;
+}
+
+/* ------------------------------------------------- */
+
+/* текст перед фильтром */
+.textageandgender {
+  text-align: center;
+  margin: 10px 0 15px 0;
+}
+
+.textageandgender p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4682A9; /* или любой цвет из твоей палитры */
+  margin: 0; /* убирает стандартный отступ у <p> */
+}
+
+/* ------------------------------------------------- */
+
+/* Центрирование фильтров */
+.filters-center {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* расстояние между полями */
+  margin: 25px 0; /* отступ сверху и снизу */
+}
+
+/* Стиль для полей */
+.filters-center input,
+.filters-center select {
+  padding: 8px 12px;
+  border: 1px solid #30465A;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  background: white;
+}
+
+/* ------------------------------------------------- */
+
+/* Индикатор прогресса проекта */
+.project-progress {
+  background: #fffdef;
+  padding: 30px;
+  border-radius: 12px;
+  margin: 30px auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+
+.project-progress p {
+  margin: 12px 10 10;
+  color: #1a365d;
+  font-size: 40px;
+  font-weight: 400;
+}
+
+
+.progress-container {
+  width: 100%;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0;
+  border: 1px solid #e0e0e0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #30465A, #3a6d8c);
+  transition: width 0.6s ease;
+  border-radius: 10px;        /* скругление заполненной части */
+}
+
+/* ------------------------------------------------- */
+
+/* Модальное окно */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background-color: #fffdef;
+  margin: 10% auto;
+  padding: 40px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 1000px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-content h3 {
+  font-size: 35px;
+  margin-top: 0;
+  color: #30465A;
+}
+
+.modal-buttons {
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Эффект при наведении — приподнимаем кнопку */
+.modal-buttons button:hover {
+  transform: translateY(-3px);
+}
+
+#acceptBtn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#acceptBtn:hover {
+  background-color: #45a049; /* чуть темнее оригинала */
+}
+
+
+#declineBtn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+#declineBtn:hover {
+  background-color: #d32f2f; /* чуть темнее оригинала */
+}
+
+/* Стиль для картинки в модальном окне */
+.modal-image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 15px;
+  display: block;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+
+#reportInput:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+/* ------------------------------------------------- */
+/* Контейнер примера копирование*/
+.example-card {
+  position: relative;
+  padding: 16px;
+}
+
+/* Кнопка копирования */
+.copy-code-btn {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Стили кнопки */
+  background: #e9ecef;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* лёгкая тень для выделения */
+}
+
+.copy-code-btn:hover {
+  background: #dcdfe3;
+}
+
+/* Всплывающая подсказка */
+.copy-code-btn::after {
+  content: "Копировать";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  margin-bottom: 6px;
+}
+
+.copy-code-btn:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.example-card p {
+  margin: 0;
+  padding-right: 40px;
+}
