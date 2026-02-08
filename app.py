@@ -131,7 +131,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(
     __name__,
-    static_folder=os.path.join(BASE_DIR, 'static'),
+    static_folder=os.path.join(BASE_DIR, 'Static'),
     template_folder=os.path.join(BASE_DIR, 'templates')
 )
 
@@ -177,5 +177,5 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    
+
     app.run(host='0.0.0.0', port=port, debug=False)
