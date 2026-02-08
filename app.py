@@ -141,11 +141,11 @@ def inject_global_vars():
 
 @app.route('/')
 def home():
-    return render_template('Main_page.html')
+    return render_template('SignSport-2.0.html')
 
 @app.route('/analyze')
 def analyze_page():
-    return render_template('SignSport-2.0.html')
+    return render_template('program.html')
 
 @app.route('/goodbye')
 def goodbye():
