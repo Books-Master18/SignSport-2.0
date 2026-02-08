@@ -171,14 +171,6 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     import os
-    # Определяем, запущено ли приложение на Render
-    is_render = os.environ.get('RENDER') is not None
-
-    if is_render:
-        # На Render: без debug, свой порт
-        port = int(os.environ.get('PORT', 5000))
-        app.run(host='0.0.0.0', port=port, debug=False)
-    else:
-        # Локально: с debug, стандартный порт
-        app.run(debug=True, host='127.0.0.1', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
     
