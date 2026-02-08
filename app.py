@@ -125,7 +125,15 @@ def analyze_with_rules(text):
     }
 
 # === FLASK-ПРИЛОЖЕНИЕ ===
-app = Flask(__name__)
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+app = Flask(
+    __name__,
+    static_folder=os.path.join(BASE_DIR, 'static'),
+    template_folder=os.path.join(BASE_DIR, 'templates')
+)
 
 @app.context_processor
 def inject_global_vars():
@@ -163,14 +171,10 @@ def analyze_text():
 
     return jsonify(result)
 
-
-
 @app.errorhandler(404)
 def page_not_found(e):
     return "Страница не найдена", 404
 
 if __name__ == '__main__':
-    import os
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
-    
